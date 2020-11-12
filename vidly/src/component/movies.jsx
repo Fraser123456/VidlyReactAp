@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { getMovies } from '../Starter Code/services/fakeMovieService';
+import Like from './common/like';
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
-    numberOfMovies: getMovies().length,
   };
 
   render() {
     return (
       <div className="container">
-        <pv className="m-3">{this.getDisplayText()}</pv>
+        <p className="m-3">{this.getDisplayText()}</p>
         {this.renderTable()}
       </div>
     );
   }
 
   getDisplayText = () => {
-    let { numberOfMovies } = this.state;
-    return numberOfMovies !== 0
-      ? 'There are currently ' + numberOfMovies + ' movies.'
+    const count = this.state.movies.length;
+    return count !== 0
+      ? 'There are currently ' + count + ' movies.'
       : 'There are no more movies left!';
   };
 
@@ -34,6 +34,14 @@ class Movies extends Component {
     });
   };
 
+  handleLike = (movie) => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    movies[index] = { ...movies[index] };
+    movies[index].liked = !movies[index].liked;
+    this.setState({ movies });
+  };
+
   renderTable = () => {
     return (
       <table className="table">
@@ -43,6 +51,7 @@ class Movies extends Component {
             <th>Genre</th>
             <th>Stock</th>
             <th>Rating</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -54,6 +63,12 @@ class Movies extends Component {
                 <td>{movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
+                <td>
+                  <Like
+                    liked={movie.liked}
+                    onToggleClick={() => this.handleLike(movie)}
+                  />
+                </td>
                 <td>
                   <button
                     onClick={() => this.handleDelete(movie)}

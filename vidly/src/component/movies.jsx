@@ -1,26 +1,40 @@
-import React, { Component } from 'react';
-import { getMovies } from '../Starter Code/services/fakeMovieService';
-import Like from './common/like';
+import React, { Component } from "react";
+import { getMovies } from "../Starter Code/services/fakeMovieService";
+import Like from "./common/like";
+import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
+    pageSize: 4,
+    currentPage: 1,
   };
 
   render() {
+    const { length: count } = this.state.movies;
+    const { pageSize, currentPage, movies } = this.state;
+    const movies = paginate(movies, currentPage, pageSize);
+
     return (
-      <div className="container">
+      <React.Fragment>
         <p className="m-3">{this.getDisplayText()}</p>
         {this.renderTable()}
-      </div>
+        <Pagination
+          itemsCount={count}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
+        />
+      </React.Fragment>
     );
   }
 
   getDisplayText = () => {
     const count = this.state.movies.length;
     return count !== 0
-      ? 'There are currently ' + count + ' movies.'
-      : 'There are no more movies left!';
+      ? "There are currently " + count + " movies."
+      : "There are no more movies left!";
   };
 
   handleDelete = (movie) => {
@@ -40,6 +54,10 @@ class Movies extends Component {
     movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked;
     this.setState({ movies });
+  };
+
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
   };
 
   renderTable = () => {

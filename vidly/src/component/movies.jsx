@@ -1,39 +1,37 @@
-import React, { Component } from "react";
-import { getMovies } from "../Starter Code/services/fakeMovieService";
-import { getGenres } from "../Starter Code/services/fakeGenreService";
-import Like from "./common/like";
-import Pagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
-import GenreFilter from "./common/genreFilter";
+import React, { Component } from 'react';
+import { getMovies } from '../Starter Code/services/fakeMovieService';
+import { getGenres } from '../Starter Code/services/fakeGenreService';
+import Like from './common/like';
+import Pagination from './common/pagination';
+import { paginate } from '../utils/paginate';
+import ListGroup from './common/listGroup';
 
 class Movies extends Component {
   state = {
-    movies: getMovies(),
-    genres: getGenres(),
+    movies: [],
+    genres: [],
     pageSize: 4,
     currentPage: 1,
-    currentFilter: "All Genres",
   };
+
+  componentDidMount() {
+    this.setState({ movies: getMovies(), genres: getGenres() });
+  }
 
   render() {
     const { length: count } = this.state.movies;
-    const {
-      pageSize,
-      currentPage,
-      movies: allMovies,
-      genres,
-      currentFilter,
-    } = this.state;
+    const { pageSize, currentPage, movies: allMovies, genres } = this.state;
     const movies = paginate(allMovies, currentPage, pageSize);
 
     return (
       <React.Fragment>
-        <div className="row col-12 m-3">
+        <div className="row col-12">
           <div className="col-2">
-            <GenreFilter
+            <ListGroup
               genres={genres}
-              currentFilter={currentFilter}
-              onFilterChange={this.handleFilter}
+              textProperty="name"
+              valueProperty="_id"
+              onItemSelect={this.handleGenreSelect}
             />
           </div>
           <div className="col">
@@ -88,16 +86,15 @@ class Movies extends Component {
     );
   }
 
-  handleFilter = (genre) => {
-    this.setState({ currentFilter: genre.name });
+  handleGenreSelect = (genre) => {
     console.log(genre);
   };
 
   getDisplayText = () => {
     const count = this.state.movies.length;
     return count !== 0
-      ? "There are currently " + count + " movies."
-      : "There are no more movies left!";
+      ? 'There are currently ' + count + ' movies.'
+      : 'There are no more movies left!';
   };
 
   handleDelete = (movie) => {

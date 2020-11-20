@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { getMovies } from "../Starter Code/services/fakeMovieService";
-import { getGenres } from "../Starter Code/services/fakeGenreService";
-import Pagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
-import ListGroup from "./common/listGroup";
-import MoviesTable from "./moviesTable";
-import _ from "lodash";
+import React, { Component } from 'react';
+import { getMovies } from '../Starter Code/services/fakeMovieService';
+import { getGenres } from '../Starter Code/services/fakeGenreService';
+import Pagination from './common/pagination';
+import { paginate } from '../utils/paginate';
+import ListGroup from './common/listGroup';
+import MoviesTable from './moviesTable';
+import _ from 'lodash';
 
 class Movies extends Component {
   state = {
@@ -13,11 +13,11 @@ class Movies extends Component {
     genres: [],
     pageSize: 4,
     currentPage: 1,
-    sortColumn: { path: "title", order: "asc" },
+    sortColumn: { path: 'title', order: 'asc' },
   };
 
   componentDidMount() {
-    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
+    const genres = [{ _id: '', name: 'All Genres' }, ...getGenres()];
     this.setState({ movies: getMovies(), genres });
   }
 
@@ -28,8 +28,8 @@ class Movies extends Component {
   getDisplayText = (filtered) => {
     const count = filtered.length;
     return count !== 0
-      ? "There are currently " + count + " movies."
-      : "There are no more movies left!";
+      ? 'There are currently ' + count + ' movies.'
+      : 'There are no more movies left!';
   };
 
   handleDelete = (movie) => {
@@ -55,14 +55,7 @@ class Movies extends Component {
     this.setState({ currentPage: page });
   };
 
-  handleSort = (path) => {
-    const sortColumn = { ...this.state.sortColumn };
-    if (sortColumn.path === path)
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
 
@@ -99,6 +92,7 @@ class Movies extends Component {
             <p className="m-3">{this.getDisplayText(filtered)}</p>
             <MoviesTable
               movies={movies}
+              sortColumn={sortColumn}
               onLike={this.handleLike}
               onDelete={this.handleDelete}
               onSort={this.handleSort}

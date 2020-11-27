@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-const Like = (props) => {
-  let classes = "fa fa-heart";
-  classes += props.liked === true ? "" : "-o";
+const Like = ({ liked, onToggleClick }) => {
+  let classes = 'fa fa-heart';
+  classes += liked === true ? '' : '-o';
   return (
     <i
-      onClick={props.onToggleClick}
+      onClick={onToggleClick}
       className={classes}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
     ></i>
   );
 };

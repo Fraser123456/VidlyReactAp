@@ -1,9 +1,8 @@
-import React from "react";
-import _ from "lodash";
-import PropTypes from "prop-types";
+import React from 'react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 
-const Pagination = (props) => {
-  const { itemsCount, pageSize, currentPage, onPageChange } = props;
+const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pagesCount = Math.ceil(itemsCount / pageSize);
 
   if (pagesCount === 1) return null;
@@ -18,9 +17,9 @@ const Pagination = (props) => {
             <li
               key={page}
               className={
-                page === currentPage ? "page-item active" : "page-item"
+                page === currentPage ? 'page-item active' : 'page-item'
               }
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
             >
               <a className="page-link" onClick={() => onPageChange(page)}>
                 {page}

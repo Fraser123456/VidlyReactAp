@@ -8,8 +8,10 @@
     "@testing-library/user-event": "^12.1.10",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
+    "query-string": "^6.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "4.0.0",
     "web-vitals": "^0.2.4"
   },

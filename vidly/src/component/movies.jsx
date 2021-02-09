@@ -97,7 +97,7 @@ class Movies extends Component {
           </div>
           <div className="col">
             <Link to={'/movie/new'}>
-              <button className="btn btn-primary btn-lg">New Movie</button>
+              <button className="btn btn-primary btn-lg" style={{marginBottom: 20}}>New Movie</button>
             </Link>
             <p className="m-3">{this.getDisplayText(totalCount)}</p>
             <MoviesTable

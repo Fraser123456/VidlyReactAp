@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
 import Input from './input';
+import DropDown from './select';
 
 class Form extends Component {
   state = {
@@ -69,6 +70,13 @@ class Form extends Component {
         error={errors[name]}
       />
     );
+  };
+
+  renderSelect = (name, lable, options) => {
+    const { data, errors } = this.state;
+    <Select
+    name={name}
+    />
   };
 
   renderDropDown = () => {};

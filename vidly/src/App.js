@@ -6,9 +6,9 @@ import NavBar from './component/navbar';
 import NotFound from './component/notfound';
 import Customers from './component/customers';
 import Rentals from './component/rentals';
-import Movie from './component/movie';
 import LoginForm from './component/loginForm';
 import RegisterForm from './component/registerFrom';
+import MovieForm from './component/movieForm';
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
           <Route path="/customers" component={Customers} />
           <Route path="/rentals" component={Rentals} />
           <Route path="/not-found" component={NotFound} />
-          <Route path="/movie/:Id" component={Movie} />
-          <Route path="/movies/new" component={Movie} />
+          <Route path="/movie/:Id" component={MovieForm} />
+          <Route path="/movies/new" component={MovieForm} />
           <Route path="/movies" component={Movies} />
           <Redirect from="/" exact to="/movies" />
           <Redirect to="/not-found" />

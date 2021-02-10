@@ -15,6 +15,7 @@ class Movies extends Component {
     pageSize: 4,
     currentPage: 1,
     sortColumn: { path: 'title', order: 'asc' },
+    SearchInput: "",
   };
 
   componentDidMount() {
@@ -80,6 +81,12 @@ class Movies extends Component {
     return { totalCount: filtered.length, data: movies };
   };
 
+  handleSearch = () => {
+    const movies = getMovies();
+    const result = movies.filter(x => x.title.toLowerCase() === this.state.SearchInput.toLowerCase());
+    this.setState({movies: result});
+  }
+
   render() {
     const { pageSize, currentPage, sortColumn } = this.state;
 
@@ -100,6 +107,9 @@ class Movies extends Component {
               <button className="btn btn-primary btn-lg" style={{marginBottom: 20}}>New Movie</button>
             </Link>
             <p className="m-3">{this.getDisplayText(totalCount)}</p>
+
+            <input className="form-control mb-2" value={this.state.SearchInput} onChange={this.handleSearch} placeholder="Search..."/>
+
             <MoviesTable
               movies={movies}
               sortColumn={sortColumn}

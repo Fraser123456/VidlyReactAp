@@ -1,13 +1,20 @@
 import React from 'react';
 
-const Select = ({data, lable, onSelect}) => {
+const select = ({name, label, options, error, ...rest}) => {
     return ( 
-        <select class="form-select" lable={lable} aria-label="Default select example" onChange={onSelect()}>
-        <option selected></option>
-        {data.map(()=>{
-            <option value={data._id}>{data.name}</option>
-        })}
-  </select> );
+        <div className="form-group">
+            <label htmlFor={name}>{label}</label>
+            <select name={name} id={name} {...rest} className="form-control">
+                <option value="" />
+                {options.map(option => (
+                    <option key={option._id} value={option._id}>
+                        {option.name}
+                    </option>)
+                )}
+            </select>
+            {error && <div className="alert alert-danger">{error}</div>}
+        </div>
+        );
 }
  
-export default DropDown;
+export default select;

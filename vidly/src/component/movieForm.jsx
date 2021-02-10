@@ -4,8 +4,6 @@ import Joi from 'joi-browser';
 import { getGenres }  from '../Starter Code/services/fakeGenreService';
 import { getMovie } from '../Starter Code/services/fakeMovieService';
 import { saveMovie } from './../Starter Code/services/fakeMovieService';
-import DropDown from './common/select';
-import { genres } from './../Starter Code/services/fakeGenreService';
 
 class MovieForm extends Form {
   state = {
@@ -24,12 +22,14 @@ class MovieForm extends Form {
 
     const movie = getMovie(movieId);
 
-    if(!movieId) return 
+    if (!movie) return this.props.history.replace("/not-found");
+
+    this.setState({data: this.mapToMovieForm(movie)})
   }
 
   schema = {
     title: Joi.string().required().label('Title'),
-    genre: Joi.string().required().label('Genre'),
+    genreId: Joi.string().required().label('Genre'),
     numberInStock: Joi.number()
       .min(0)
       .max(100)
@@ -41,7 +41,17 @@ class MovieForm extends Form {
   doSubmit=()=>{
     saveMovie(this.state.data);
 
-    this.props.history.puch("/movies");
+    this.props.history.push("/movies");
+  }
+
+  mapToMovieForm(movie){
+    return {
+      _id: movie._id,
+      title: movie.title,
+      genreId: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate,
+    }
   }
 
   render() {
@@ -51,7 +61,6 @@ class MovieForm extends Form {
         <form onSubmit={this.handleSubmit}>
           {this.renderInput('title', 'Title')}
           {this.renderSelect('genreId', 'Genre', this.state.genres)}
-          {this.renderInput('genre', 'Genre', 'dropdown')}
           {this.renderInput('numberInStock', 'Number In Stock', 'number')}
           {this.renderInput('dailyRentalRate', 'Daily Rental Rate', 'number')}
           {this.renderButton('Save')}

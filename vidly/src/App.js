@@ -7,7 +7,7 @@ import NotFound from './component/notfound';
 import Customers from './component/customers';
 import Rentals from './component/rentals';
 import LoginForm from './component/loginForm';
-import RegisterForm from './component/registerFrom';
+import RegisterForm from './component/registerForm';
 import MovieForm from './component/movieForm';
 
 function App() {

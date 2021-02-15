@@ -1,20 +1,20 @@
-import React from 'react';
+import React from "react";
 
-const select = ({name, label, options, error, ...rest}) => {
-    return ( 
-        <div className="form-group">
-            <label htmlFor={name}>{label}</label>
-            <select name={name} id={name} {...rest} className="form-control">
-                <option value="" />
-                {options.map(option => (
-                    <option key={option._id} value={option._id}>
-                        {option.name}
-                    </option>)
-                )}
-            </select>
-            {error && <div className="alert alert-danger">{error}</div>}
-        </div>
-        );
-}
- 
-export default select;
+const Select = ({ name, label, options, error, ...rest }) => {
+  return (
+    <div className="form-group">
+      <label htmlFor={name}>{label}</label>
+      <select className="form-control" name={name} id={name} {...rest}>
+        <option value="" />
+        {options.map((option) => (
+          <option key={option._id} value={option._id}>
+            {option.name}
+          </option>
+        ))}
+      </select>
+      {error && <div className="alert alert-danger">{error}</div>}
+    </div>
+  );
+};
+
+export default Select;
